@@ -4,7 +4,7 @@ import { useEffect, useState,useRef } from "react";
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap'
 import Userdata from "./components/Userdata";
-const socket =io("http://localhost:4000")
+const socket =io("https://timeseriesbackend.onrender.com")
 socket.on("connect",()=>console.log('react app is now connected to socket'))
 function App() {
   const[data,setData]=useState()

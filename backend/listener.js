@@ -12,7 +12,7 @@ const {TimeSeriesModel,MinuteSummaryModel}=require('./connector')
 const {validatePayload} =require('./utils')
 const io= new Server(server,{
   cors:{
-    origin:["http://localhost:3000"]
+    origin:["http://localhost:3000","https://timeseriesfrontend.onrender.com"]
 
   }
 })
