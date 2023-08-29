@@ -14,9 +14,6 @@ function App() {
   const [error,setError]=useState()
   // console.log(data)
   // console.log('refreshes')
-  const fakeencrypt =()=>{
-    socket.emit('fakeencryptfrontend','hi')
-  }
   useEffect(()=>{
     socket.on('success',({payload})=>{
       setData(payload)

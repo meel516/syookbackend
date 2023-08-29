@@ -12,7 +12,7 @@ const {TimeSeriesModel,MinuteSummaryModel}=require('./connector')
 const {validatePayload} =require('./utils')
 const io= new Server(server,{
   cors:{
-    origin:"http://localhost:3000"
+    origin:["http://localhost:3000"]
 
   }
 })
@@ -21,10 +21,16 @@ io.on('connection', (socket) => {
   console.log('Listener connected to emitter');
 
   socket.on('encryptedDataStream', async (encryptedMessage) => {
+   let totalcount=0
+    let successcount=0
+    let errorcount=0
     try {
       // console.log(encryptedMessage,'message encrypted is')
-      const encryptedMessages = encryptedMessage.split('|');
+     const encryptedMessages = encryptedMessage.split('|');
+     totalcount=encryptedMessages.length
+     let totalmessages =encryptedMessages.length
       for (const encryptedMessage of encryptedMessages){
+       
       const ivHex = encryptedMessage.substr(0, 32);
        // Extract the first 32 characters as IV in hex
        const iv = Buffer.from(ivHex, 'hex');
@@ -42,21 +48,29 @@ io.on('connection', (socket) => {
       if (validatePayload(payload)) {
         try{
         await saveToMongo(payload);
-        socket.emit('success',payload)
+        successcount++
+        io.emit('success',{payload})
         console.log('Valid payload saved:', payload);
       }
       catch(err){
+console.log('error saving the data to mongodb')
 
       }
 
        
       } else {
         console.log('Invalid payload:', payload);
+        io.emit('error',{message:"payload is corrupted"})
+       errorcount++
       }
     }
     } catch (error) {
+      errorcount++
       console.error('Error decrypting or processing payload:', error.message);
+      io.emit('error',{message:error.message})
+    
     }
+    io.emit('log',{successcount,errorcount,totalcount})
   });
 });
 
