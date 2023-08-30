@@ -2,6 +2,7 @@
 
 This is a backend and frontend application that generates and emits encrypted data streams over a socket, listens to incoming data streams, decrypts and decodes them, saves the data to a MongoDB time series collection, and displays the valid data in a real-time frontend app.
 
+<img width="955" alt="Screenshot 2023-08-30 131509" src="https://github.com/meel516/syooktimeseries/assets/102860983/b29e9973-48b1-4960-a884-e4752fc02689">
 ## Technologies Used
 
 - Node.js
@@ -52,4 +53,4 @@ https://timeseriesfrontend.onrender.com.
 3.You can see the total emitted, successful, and error counts, as well as the success rate for data transmission and decoding.
 
 ## Contact
-If you have any questions or need further assistance, feel free to contact me at md.saleem@gmail.com.
+If you have any questions or need further assistance, feel free to contact me at md.saleem516@gmail.com.
